@@ -22,8 +22,14 @@ def train_model(training_data, alpha):
     linear_model = ElasticNet().fit(training_x, training_y)
     return linear_model
 
-#TODO: Write Input Function
-#def predict_fn(input_data, model):
+def model_fn(model_dir):
+    clf = joblib.load(os.path.join(model_dir, "model.joblib"))
+    return clf
+
+def predict_fn(input_data, model):
+    input_data = input_data.reshape(1,-1)
+    predicted_mpg = model.predict(input_data)
+    return predicted_mpg
     
 
 if __name__ == "__main__":
